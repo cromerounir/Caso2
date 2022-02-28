@@ -7,7 +7,7 @@ variable "location" {
 variable "vm_size" {
     type = string
     description = "VM size"
-    default = "Standard_D1_v2"  
+    default = "Standard_D1_v2" # 3.5 GB, 1 CPU
 }
 
 vaiable "machines" {
