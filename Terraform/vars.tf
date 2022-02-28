@@ -10,7 +10,7 @@ variable "vm_size" {
     default = "Standard_D1_v2" # 3.5 GB, 1 CPU
 }
 
-vaiable "machines" {
+variable "machines" {
     type = list(string)
     description = "machines to create"
     default = ["master","worker011","worker02","nfs_node"]
