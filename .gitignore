@@ -1,4 +1,4 @@
 credentials.tf
 *.tfstate
-terraform/.terraform
+Terraform/.terraform
 *.hcl
