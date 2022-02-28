@@ -21,9 +21,12 @@ resource "azurerm_linux_virtual_machine" "myVM1" {
     network_interface_ids = [ azurerm_network_interface.myNic1[count.index].id]
     disable_password_authentication = true
 
+    #hay que generar par de claves para poderse conectar por ssh:
+    #https://docs.microsoft.com/es-es/azure/virtual-machines/linux/mac-create-ssh-keys
+
     admin_ssh_key {
         username   = "adminUsername"
-        public_key = file("~/.ssh/id_rsa.pub")
+        public_key = file("~/.ssh/cp2/cp2.pub")
     }
 
     os_disk {
