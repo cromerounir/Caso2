@@ -3,3 +3,4 @@ credentials.tf
 Terraform/.terraform
 centos
 *.hcl
+terraform.tfstate.backup

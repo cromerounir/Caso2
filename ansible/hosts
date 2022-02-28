@@ -2,11 +2,11 @@
 ansible_user=adminUsername
 
 [master]
-master
+20.126.58.246
 
 [workers]
-worker1
-worker2
+20.126.124.99
+20.126.158.166
 
 [nfs]
-nfs
+20.126.58.108
