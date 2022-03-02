@@ -1,0 +1,10 @@
+---
+
+- name: installing k8s
+  hosts: masterm, workers
+  vars_files:
+    - "group_vars/common.yaml"
+  gather_facts: true
+  become: true
+  roles:
+    - kubernetes
