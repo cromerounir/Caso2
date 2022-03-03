@@ -1,8 +1,0 @@
-- name: nfs and wget install
-  dnf:
-    name:
-      - wget
-      - net-tools
-      - nfs-utils
-      - nfs4-acl-tools
-    state: latest
