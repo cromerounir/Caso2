@@ -1,5 +1,6 @@
 [all:vars]
 ansible_user=adminUsername
+host_key_checking = False
 
 [master]
 20.101.82.229
