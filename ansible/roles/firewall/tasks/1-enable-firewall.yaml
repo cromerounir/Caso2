@@ -1,0 +1,17 @@
+- name: enable firewall
+  ansible.builtin.systemd:
+    name: firewalld
+    enabled: yes
+    state: started
+
+- name: firewall masquerade
+  ansible.posix.firewalld:
+   masquerade: enabled
+   state: enabled
+   permanent: yes
+   zone: dmz
+
+- name: reload firewall
+  systemd:
+    name: firewalld
+    state: reloaded
