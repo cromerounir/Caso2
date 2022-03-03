@@ -13,6 +13,6 @@
   shell: |
          timedatectl set-ntp true
 
-- name: Establece la zona horaria
+- name: timezone set
   timezone:
     name: "{{timezone}}"
