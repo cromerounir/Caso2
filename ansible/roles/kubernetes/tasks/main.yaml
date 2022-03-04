@@ -1,0 +1,4 @@
+---
+
+- include_tasks: 1-crio.yaml
+- include_tasks: 2-k8s_setup.yaml

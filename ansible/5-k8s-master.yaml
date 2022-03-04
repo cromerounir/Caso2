@@ -1,0 +1,6 @@
+- name: setup k8s master node
+  hosts: [master]
+  gather_facts: true
+  become: true
+  roles:
+    - kubernetes_master
