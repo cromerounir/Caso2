@@ -1,0 +1,8 @@
+- name: nfs node config
+  hosts: master
+  vars_files:
+    - "./nfs_vars.yaml"
+  gather_facts: true
+  become: true
+  roles:
+    - nfs
