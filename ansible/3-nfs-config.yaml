@@ -1,7 +1,7 @@
 - name: nfs node config
   hosts: [master]
   vars_files:
-    - "./configuration.yaml"
+    - "group_vars/configuration.yaml"
   gather_facts: true
   become: true
   roles:
