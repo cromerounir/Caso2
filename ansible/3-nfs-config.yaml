@@ -1,5 +1,5 @@
 - name: nfs node config
-  hosts: master
+  hosts: [master]
   vars_files:
     - "./configuration.yaml"
   gather_facts: true
