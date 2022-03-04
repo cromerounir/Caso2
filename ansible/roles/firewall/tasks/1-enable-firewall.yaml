@@ -36,7 +36,7 @@
   become: true
   shell: swapoff -a
 
-- name: delete swap
+- name: delete swap fstab
   become: true
   ansible.builtin.lineinfile:
     path: /etc/fstab
