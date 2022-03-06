@@ -61,11 +61,11 @@
 - name: enable root use kubectl
   shell: KUBECONFIG=/etc/kubernetes/admin.conf
 
-- name: create new foler .kube
-  command: mkdir -p /root/.kube
+#- name: create new foler .kube
+#  command: mkdir -p /root/.kube
 
-- name: copy permissions
-  command: cp -i /etc/kubernetes/admin.conf /root/.kube/config
+#- name: copy permissions
+#  command: cp -i /etc/kubernetes/admin.conf /root/.kube/config
 
-- name: authorize root
-  shell: chown $(id -u):$(id -g) /root/.kube/config
+#- name: authorize root
+#  shell: chown $(id -u):$(id -g) /root/.kube/config
