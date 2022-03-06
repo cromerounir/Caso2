@@ -14,6 +14,7 @@
    - 8285/udp
    - 8472/udp
    - 30000-32767/tcp
+   - 10250/tcp
 
 - name: kubeadm config
   shell: kubeadm config images pull
@@ -23,7 +24,7 @@
     name: firewalld
     state: reloaded
 
-- name: allow access to workers
+- name: allow access to workers and local
   firewalld:
       rich_rule: "{{item}}"
       permanent: yes
@@ -32,23 +33,26 @@
   loop:
    - 'rule family=ipv4 source address=10.0.1.10/32 accept'
    - 'rule family=ipv4 source address=10.0.1.11/32 accept'
+   - 'rule family=ipv4 source address=172.17.0.0/16 accept'
+
+- name: update inages
+  shell: kubeadm config images pull
 
 - name: install plugin CNI and define pods network
-  command: kubeadm init --pod-network-cidr 192.169.0.0/16
+  shell: kubeadm init --pod-network-cidr 192.169.0.0/16
 
 - name: token
   command: kubeadm token create --print-join-command
   register: token_kube
 
--name: save join token
- local_action: copy content="{{ token_kube.stdout_lines[0] }}" dest="./join-token"
+- name: save join token
+  local_action: copy content="{{ token_kube.stdout_lines[0] }}" dest="./join-token"
 
--name: create new foler .kube
- command: mkdir -p /root/.kube
+- name: create new foler .kube
+  command: mkdir -p /root/.kube
 
--name: copy permissions
- command: cp -i /etc/kubernetes/admin.conf /root/.kube/config
+- name: copy permissions
+  command: cp -i /etc/kubernetes/admin.conf /root/.kube/config
 
--name: authorize root
- command: - name: Autorización al user root
+- name: authorize root
   shell: chown $(id -u):$(id -g) /root/.kube/config
