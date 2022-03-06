@@ -44,12 +44,16 @@
 #  shell: kubeadm init --pod-network-cidr={{ip_cidr}}
 
 - name: token
+  become: true
   command: kubeadm token create --print-join-command
   register: token_kube
 
 - name: save join token
-  become: true
-  local_action: copy content="{{ token_kube.stdout_lines[0] }}" dest="./join-token"
+  set_fact:
+        token_kube: "{{token_kube.stdout_lines[0]}}"
+
+- name: enable root use kubectl
+  shell: KUBECONFIG=/etc/kubernetes/admin.conf
 
 - name: create new foler .kube
   command: mkdir -p /root/.kube
