@@ -1,36 +1,26 @@
-- name: copy k8s repo
-  become: true
-  ansible.builtin.lineinfile:
-    path: /etc/yum.repos.d/kubernetes.repo
-    backup: yes
-    line: "{{item}}"
-    create: yes
-    state: present
-  with_items:
-     - "[kubernetes]"
-     - "name=Kubernetes"
-     - "baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
-     - "enabled=1"
-     - "gpgcheck=1"
-     - "repo_gpgcheck=1"
-     - "gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg"
-     - "exclude=kubelet kubeadm kubectl"
+- name: repo k8s
+  copy: 
+    dest: "/etc/yum.repos.d/kubernetes.repo"
+    content: |
+      [kubernetes]
+      name=Kubernetes
+      baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+      enabled=1
+      gpgcheck=1
+      repo_gpgcheck=1
+      gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+      exclude=kubelet kubeadm kubectl
 
--name: setup kubeadm, kubectl and kubelet
-dnf:
-  name:
-    -kubeadm
-    -kubectl
-    -kubelet
+- name: setup kubeadm, kubectl and kubelet
+  dnf:
+    name:
+      - kubeadm
+      - kubectl
+      - kubelet
+    disable_excludes: kubernetes
 
-- name: Enable kubelet service
-  become: true
+- name: enables kubelet
   ansible.builtin.systemd:
     name: kubelet
     enabled: yes
-
-- name: start kubelet
-  become: true
-  ansible.builtin.systemd:
-    name: kubelet
-    state: started 
+    state: started

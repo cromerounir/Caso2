@@ -30,8 +30,8 @@
       immediate: yes
       state: enabled
   loop:
-   - 'rule family=ipv4 source address=10.0.1.x/32 accept'
-   - 'rule family=ipv4 source address=10.0.1.x/32 accept'
+   - 'rule family=ipv4 source address=10.0.1.10/32 accept'
+   - 'rule family=ipv4 source address=10.0.1.11/32 accept'
 
 - name: install plugin CNI and define pods network
   command: kubeadm init --pod-network-cidr 192.169.0.0/16
@@ -52,4 +52,3 @@
 -name: authorize root
  command: - name: Autorización al user root
   shell: chown $(id -u):$(id -g) /root/.kube/config
-
