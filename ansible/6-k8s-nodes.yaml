@@ -1,0 +1,8 @@
+- name: setup k8s workers
+  hosts: [workers]
+  vars_files:
+    - "group_vars/configuration.yaml"
+  gather_facts: true
+  become: true
+  roles:
+    - kubernetes_nodes

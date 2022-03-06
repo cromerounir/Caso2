@@ -1,0 +1,17 @@
+- name: configuring ports
+  firewalld:
+    permanent: yes
+    immediate: yes
+    state: enabled
+    port: "{{item}}"
+  loop:
+   - 8285/udp
+   - 8472/udp
+
+- name: reload firewallid
+  systemd:
+    name: firewalld
+    state: reloaded
+
+- name: install azure sdn
+  shell: kubectl apply -f https://docs.projectcalico.org/manifests/canal.yaml

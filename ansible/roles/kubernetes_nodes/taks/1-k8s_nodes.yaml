@@ -1,0 +1,17 @@
+- name: configuring ports
+  firewalld:
+    permanent: yes
+    immediate: yes
+    state: enabled
+    port: "{{item}}"
+  loop:
+   - 10250/tcp
+   - 30000-32767/tcp
+
+- name: reload firewallid
+  systemd:
+    name: firewalld
+    state: reloaded
+
+  - name: Copiar el comando join al destino de servidor
+    copy: src=token_kube dest=/tmp/token_kube.sh mode=0777

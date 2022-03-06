@@ -1,3 +1,5 @@
 ---
 
 - include_tasks: 1-k8s_master.yaml
+- include_tasks: 2-sdn.yaml
+- include_tasks: 3-ingress_controller.yaml
