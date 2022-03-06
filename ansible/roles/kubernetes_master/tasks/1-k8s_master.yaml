@@ -43,6 +43,12 @@
 - name: install plugin CNI and define pods network
   shell: kubeadm init --pod-network-cidr={{ip_cidr}}
 
+- name: copy k8s files
+  shell: |
+    mkdir -p /root/.kube
+    cp -i /etc/kubernetes/admin.conf /root/.kube/config
+    chown $(id -u):$(id -g) /root/.kube/config
+
 - name: token
   become: true
   command: kubeadm token create --print-join-command
