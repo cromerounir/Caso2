@@ -1,3 +1,55 @@
-https://github.com/jadebustos/devopslabs/blob/master/labs-k8s/00-00-instalando-kubernetes.md
+- name: configuring ports
+  firewalld:
+    permanent: yes
+    immediate: yes
+    state: enabled
+    port: "{{item}}"
+  loop:
+   - 6443/tcp
+   - 2379-2380/tcp
+   - 10250-10252/tcp
+   - 10255/tcp
+   - 10252/tcp
+   - 10255/tcp
+   - 8285/udp
+   - 8472/udp
+   - 30000-32767/tcp
 
-Configurando kubernetes en el nodo master
+- name: kubeadm config
+  shell: kubeadm config images pull
+
+- name: reload firewallid
+  systemd:
+    name: firewalld
+    state: reloaded
+
+- name: allow access to workers
+  firewalld:
+      rich_rule: "{{item}}"
+      permanent: yes
+      immediate: yes
+      state: enabled
+  loop:
+   - 'rule family=ipv4 source address=10.0.1.x/32 accept'
+   - 'rule family=ipv4 source address=10.0.1.x/32 accept'
+
+- name: install plugin CNI and define pods network
+  command: kubeadm init --pod-network-cidr 192.169.0.0/16
+
+- name: token
+  command: kubeadm token create --print-join-command
+  register: token_kube
+
+-name: save join token
+ local_action: copy content="{{ token_kube.stdout_lines[0] }}" dest="./join-token"
+
+-name: create new foler .kube
+ command: mkdir -p /root/.kube
+
+-name: copy permissions
+ command: cp -i /etc/kubernetes/admin.conf /root/.kube/config
+
+-name: authorize root
+ command: - name: Autorización al user root
+  shell: chown $(id -u):$(id -g) /root/.kube/config
+
