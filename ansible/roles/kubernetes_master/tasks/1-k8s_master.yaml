@@ -31,20 +31,24 @@
       immediate: yes
       state: enabled
   loop:
-   - 'rule family=ipv4 source address=10.0.1.10/32 accept'
-   - 'rule family=ipv4 source address=10.0.1.11/32 accept'
+   - 'rule family=ipv4 source address=10.0.1.10/24 accept'
+   - 'rule family=ipv4 source address=10.0.1.11/24 accept'
 
 - name: update inages
   shell: kubeadm config images pull
 
-- name: install plugin CNI and define pods network
-  shell: kubeadm init --pod-network-cidr={{ip_cidr}}
+- name: avoid kubeadm failing to initialize next step
+  shell: echo 1 > /proc/sys/net/ipv4/ip_forward
+
+#- name: install plugin CNI and define pods network
+#  shell: kubeadm init --pod-network-cidr={{ip_cidr}}
 
 - name: token
   command: kubeadm token create --print-join-command
   register: token_kube
 
 - name: save join token
+  become: true
   local_action: copy content="{{ token_kube.stdout_lines[0] }}" dest="./join-token"
 
 - name: create new foler .kube
