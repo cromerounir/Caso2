@@ -7,11 +7,14 @@
   loop:
    - 10250/tcp
    - 30000-32767/tcp
-
+   
 - name: reload firewallid
   systemd:
     name: firewalld
     state: reloaded
 
-  - name: Copiar el comando join al destino de servidor
-    copy: src=token_kube dest=/tmp/token_kube.sh mode=0777
+- name: join node
+  shell: |
+    kubeadm reset -f
+    cat token_kube | tail -2 > initoken.sh
+    sh initoken.sh
