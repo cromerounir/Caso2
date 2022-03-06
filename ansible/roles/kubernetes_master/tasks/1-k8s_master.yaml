@@ -33,13 +33,12 @@
   loop:
    - 'rule family=ipv4 source address=10.0.1.10/32 accept'
    - 'rule family=ipv4 source address=10.0.1.11/32 accept'
-   - 'rule family=ipv4 source address=172.17.0.0/16 accept'
 
 - name: update inages
   shell: kubeadm config images pull
 
 - name: install plugin CNI and define pods network
-  shell: kubeadm init --pod-network-cidr 192.169.0.0/16
+  shell: kubeadm init --pod-network-cidr={{ip_cidr}}
 
 - name: token
   command: kubeadm token create --print-join-command

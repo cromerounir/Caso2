@@ -1,5 +1,7 @@
 - name: setup k8s master node
   hosts: [master]
+  vars_files:
+    - "group_vars/configuration.yaml"
   gather_facts: true
   become: true
   roles:
