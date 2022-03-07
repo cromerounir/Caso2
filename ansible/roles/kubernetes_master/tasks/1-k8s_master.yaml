@@ -41,7 +41,7 @@
   shell: echo 1 > /proc/sys/net/ipv4/ip_forward
 
 - name: install plugin CNI and define pods network
-  shell: kubeadm init --pod-network-cidr={{ip_cidr}}
+  shell: kubeadm init --pod-netw  ork-cidr={{ip_cidr}}
 
 - name: copy k8s files
   shell: |
@@ -52,11 +52,11 @@
 #algo pasa con el token  que no se guarda y luego no puedo añadir los nodos.
 
 - name: Generate join command
-    command: kubeadm token create --print-join-command
-    register: join_command
+  command: kubeadm token create --print-join-command
+  register: join_command
 
 - name: Copy join command to local file
-    local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
+  local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
 
 #- name: token
 #  become: true
