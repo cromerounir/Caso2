@@ -45,9 +45,9 @@
 
 - name: copy k8s files
   shell: |
-    mkdir -p /root/.kube
-    cp -i /etc/kubernetes/admin.conf /root/.kube/config
-    chown $(id -u):$(id -g) /root/.kube/config
+    mkdir -p $HOME/.kube
+    cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    chown $(id -u):$(id -g) $HOME/.kube/config
 
 - name: token
   become: true
@@ -60,6 +60,8 @@
 
 - name: enable root use kubectl
   shell: KUBECONFIG=/etc/kubernetes/admin.conf
+
+#falta kubeadm join el mismo master.
 
 #- name: create new foler .kube
 #  command: mkdir -p /root/.kube
