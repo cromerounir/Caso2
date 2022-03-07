@@ -60,6 +60,9 @@
   set_fact:
         token_kube: "{{token_kube.stdout_lines[0]}}"
 
+#- name: Store join command
+#  action: copy content="{{ token_kube }}" dest="/etc/kubernetes/token_kube.command"
+
 - name: enable root use kubectl
   shell: KUBECONFIG=/etc/kubernetes/admin.conf
 
