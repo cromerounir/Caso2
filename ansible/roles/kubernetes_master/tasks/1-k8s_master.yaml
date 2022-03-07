@@ -40,8 +40,8 @@
 - name: avoid kubeadm failing to initialize next step
   shell: echo 1 > /proc/sys/net/ipv4/ip_forward
 
-#- name: install plugin CNI and define pods network
-#  shell: kubeadm init --pod-netw  ork-cidr={{ip_cidr}}
+- name: install plugin CNI and define pods network
+  shell: kubeadm init --pod-network-cidr={{ip_cidr}}
 
 - name: copy k8s files
   shell: |
