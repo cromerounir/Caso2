@@ -3,11 +3,11 @@ ansible_user=adminUsername
 host_key_checking = False
 
 [master]
-52.174.178.247
+104.45.10.9
 
 [workers]
-52.174.30.4
-40.68.253.236
+104.40.153.241
+104.40.191.205
 
 [nfs]
-52.174.178.247
+104.45.10.9

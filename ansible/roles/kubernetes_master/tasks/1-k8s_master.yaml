@@ -49,6 +49,8 @@
     cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
     chown $(id -u):$(id -g) $HOME/.kube/config
 
+#algo pasa con el token  que no se guarda y luego no puedo añadir los nodos.
+
 - name: token
   become: true
   command: kubeadm token create --print-join-command
