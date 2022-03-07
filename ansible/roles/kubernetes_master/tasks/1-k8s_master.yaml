@@ -56,9 +56,9 @@
   command: kubeadm token create --print-join-command
   register: token_kube
 
-- name: save join token
-  set_fact:
-        token_kube: "{{token_kube.stdout_lines[0]}}"
+#- name: save join token
+#  set_fact:
+#        token_kube: "{{token_kube.stdout_lines[0]}}"
 
 #- name: Store join command
 #  action: copy content="{{ token_kube }}" dest="/etc/kubernetes/token_kube.command"
