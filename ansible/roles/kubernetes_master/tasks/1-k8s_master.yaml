@@ -49,31 +49,13 @@
     cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
     chown $(id -u):$(id -g) $HOME/.kube/config
 
-#algo pasa con el token  que no se guarda y luego no puedo añadir los nodos.
-
 - name: Generate join command
   command: kubeadm token create --print-join-command
   register: join_command
 
-- name: Copy join command to local file
+- name: copy join_command to local
   local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
-
-#- name: token
-#  become: true
-#  command: kubeadm token create --print-join-command
-#  register: token_kube
-
-# enseño el token para ver que lo guarda.
-
-#- debug:
-#    var: token_kube
-
-#- name: save join token
-#  set_fact:
-#        token_kube: "{{token_kube.stdout_lines[0]}}"
-
-#- name: Store join command
-#  action: copy content="{{ token_kube }}" dest="/etc/kubernetes/token_kube.command"
+  become: no  
 
 - name: enable root use kubectl
   shell: KUBECONFIG=/etc/kubernetes/admin.conf

@@ -16,23 +16,11 @@
 - name: avoid kubeadm failing to initialize next step
   shell: echo 1 > /proc/sys/net/ipv4/ip_forward
 
-#- name: join node
-#  shell: |
-#    kubeadm reset -f
-#    cat token_kube | tail -2 > initoken.sh
-#    sh initoken.sh
-
-#- name: debug token
-#  become: true
-#  debug: msg = "{20.105.130.190]['token_kube'].stdout}}"
-
-#- name: execute join
-#  become: true  
-#  command: "{20.105.130.190]['token_kube'].stdout}}"
-#  ignore_errors: yes
-
-- name: Copy the join command to server location
+- name: copy join from local to workers
   copy: src=join-command dest=/tmp/join-command.sh mode=0777
 
-- name: Join the node to cluster
+- name: join workers to k8s cluster
   command: sh /tmp/join-command.sh
+
+- name: remove join-command
+  command: rm join-command
