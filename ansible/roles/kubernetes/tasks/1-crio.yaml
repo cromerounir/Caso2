@@ -5,11 +5,11 @@
 - name: download repo_2
   shell: wget -O /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:1.23:1.23.1.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:1.23:1.23.1/CentOS_8_Stream/devel:kubic:libcontainers:stable:cri-o:1.23:1.23.1.repo
 
-#- name: copy crio.conf
-#  ansible.builtin.copy:
-#   src: files/crio.conf
-#   dest: /etc/modules-load.d/crio.conf
-#   mode: u=rw,g=r,o=r
+- name: copy crio.conf
+  ansible.builtin.copy:
+   src: files/crio.conf
+   dest: /etc/modules-load.d/crio.conf
+   mode: u=rw,g=r,o=r
 
 - name: kernel modules cri-o
   shell: cat <<EOF > /etc/modules-load.d/crio.conf > overlay > br_netfilter > EOF
