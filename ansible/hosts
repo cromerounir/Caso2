@@ -1,13 +1,14 @@
 [all:vars]
 ansible_user=adminUsername
 host_key_checking = False
+ansible_ssh_private_key= "~/.ssh/id_rsa"
 
 [master]
-20.107.71.237
+20.86.186.137
 
 [workers]
-51.124.233.10
-51.124.236.164
+20.93.148.171
+20.86.186.240
 
 [nfs]
-20.107.71.237
+20.86.186.137
