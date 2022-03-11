@@ -1,3 +1,36 @@
----
 
-- include_tasks: test.yaml
+
+- name: Copy nfs-pv.yaml to master
+  ansible.builtin.copy:
+   src: nfs-pv.yaml
+   dest: ./
+   mode: u=rw,g=r,o=r
+
+- name: Apply nfs-pv.yaml
+  become: true
+  shell: kubectl apply -f nfs-pv.yaml
+
+- name: Copy nfs-pvc.yaml to master
+  become: true
+  copy:
+    src: nfs-pvc.yaml
+    dest: ./
+
+- name: Apply nfs-pv.yaml
+  become: true
+  shell: kubectl apply -f nfs-pvc.yaml
+
+- name: Copy nginx.yaml
+  ansible.builtin.copy:
+   src: nginx.yaml
+   dest: ./
+   mode: u=rw,g=r,o=r
+
+- name: Apply nginx.yaml
+  become: true
+  shell: kubectl apply -f nginx.yaml
+
+#- name: Add stable chart repo
+#  kubernetes.core.helm_repository:
+#    name: stable
+#    repo_url: "https://kubernetes.github.io/ingress-nginx"

@@ -35,12 +35,12 @@ spec:
       image: nginx:latest
       volumeMounts:
         - name: shared-files
-          mountPath: /srv/nfs/www/html
+          mountPath: /srv/nfs
         - name: nginx-config-volume
-          mountPath: /etc/nginx/nginx.conf
+          mountPath: /srv/nfs/nginx.conf
           subPath: nginx.conf
     - name: php-fpm-container
       image: php:7.0-fpm
       volumeMounts:
         - name: shared-files
-          mountPath: /srv/nfs/www/html
+          mountPath: /srv/nfs
