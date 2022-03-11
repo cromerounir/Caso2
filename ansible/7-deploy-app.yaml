@@ -1,0 +1,8 @@
+- name: deploy app
+  hosts: [master]
+  vars_files:
+    - "group_vars/configuration.yaml"
+  gather_facts: true
+  become: true
+  roles:
+    - app

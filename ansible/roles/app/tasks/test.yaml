@@ -1,0 +1,10 @@
+- name: copy nginx.yaml
+  ansible.builtin.copy:
+   src: files/nginx.yaml
+   dest: /etc/nginx.yaml
+   mode: u=rw,g=r,o=r
+
+
+
+- name: create nginx
+  shell: kubectl create -f /etc/nginx.yaml
