@@ -1,6 +1,6 @@
-- name: create mamespace
-  become: true
-  shell: kubectl create namespace webapp-volumes
+#- name: create mamespace
+#  become: true
+#  shell: kubectl create namespace webapp-volumes
 
 
 - name: Copy nfs-pv.yaml to master
@@ -32,6 +32,16 @@
 - name: Apply nginx.yaml
   become: true
   shell: kubectl apply -f nginx.yaml
+
+- name: Copy loki-stack.yaml
+  ansible.builtin.copy:
+   src: loki-stack.yaml
+   dest: ./
+   mode: u=rw,g=r,o=r
+
+- name: Apply loki-stack.yaml
+  become: true
+  shell: kubectl apply -f loki-stack.yaml
 
 #- name: Add stable chart repo
 #  kubernetes.core.helm_repository:
