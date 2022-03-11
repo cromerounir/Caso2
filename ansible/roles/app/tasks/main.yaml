@@ -23,25 +23,53 @@
   become: true
   shell: kubectl apply -f nfs-pvc.yaml
 
-- name: Copy nginx.yaml
-  ansible.builtin.copy:
-   src: nginx.yaml
-   dest: ./
-   mode: u=rw,g=r,o=r
-
-- name: Apply nginx.yaml
+- name: Copy webapp-volumes.yaml to master
   become: true
-  shell: kubectl apply -f nginx.yaml
+  copy:
+    src: webapp-volumes.yaml
+    dest: ./
 
-- name: Copy loki-stack.yaml
-  ansible.builtin.copy:
-   src: loki-stack.yaml
-   dest: ./
-   mode: u=rw,g=r,o=r
+- name: apply webapp-volumes.yaml
+  shell: kubectl apply -f webapp-volumes.yaml
 
-- name: Apply loki-stack.yaml
-  become: true
-  shell: kubectl apply -f loki-stack.yaml
+##PRUEBAS con varias app
+
+#- name: Copy nginx.yaml
+#  ansible.builtin.copy:
+#   src: nginx.yaml
+#   dest: ./
+#   mode: u=rw,g=r,o=r
+
+#- name: Apply nginx.yaml
+#  become: true
+#  shell: kubectl apply -f nginx.yaml
+
+#- name: Copy loki-stack.yaml
+#  ansible.builtin.copy:
+#   src: loki-stack.yaml
+#   dest: ./
+#   mode: u=rw,g=r,o=r
+
+#- name: create mamespace
+#  become: true
+#  shell: kubectl create namespace loki-stack
+
+#- name: install helm
+#  shell: curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+
+#- name: permissions
+#  shell: chmod +x get_helm.sh
+
+#- name: install helm
+#  shell: ./get_helm.sh
+
+#- name: Apply loki-stack.yaml
+#  kubernetes.core.helm:
+#    name: loki-stack
+#    release_namespace: loki-stack
+#    chart_ref: loki-stack.yaml
+
+
 
 #- name: Add stable chart repo
 #  kubernetes.core.helm_repository:
