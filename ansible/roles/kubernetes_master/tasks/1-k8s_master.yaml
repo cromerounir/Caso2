@@ -43,11 +43,12 @@
 - name: install plugin CNI and define pods network
   shell: kubeadm init --pod-network-cidr={{ip_cidr}}
 
-- name: copy k8s files
+- name: copy k8s kubeconfig
   shell: |
     mkdir -p $HOME/.kube
     cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
     chown $(id -u):$(id -g) $HOME/.kube/config
+
 
 -name: kubeconfig root
     mkdir -p /root/.kube

@@ -66,10 +66,12 @@
 - name: Apply loki-stack.yaml
   become: true
   become_user: adminUsername
-  kubernetes.core.helm:
+  kubernetes.core.helm_repository:
     name: loki-stack
+    repo_url: "https://grafana.github.io/helm-charts"
     release_namespace: loki-stack
-    chart_ref: loki-stack.yaml
+    chart_version: 2.5.0
+    values_files: loki-stack.yaml
 
 
 
