@@ -1,3 +1,6 @@
+- name: create mamespace
+  become: true
+  shell: kubectl create namespace webapp-volumes
 
 
 - name: Copy nfs-pv.yaml to master
@@ -16,7 +19,7 @@
     src: nfs-pvc.yaml
     dest: ./
 
-- name: Apply nfs-pv.yaml
+- name: Apply nfs-pvc.yaml
   become: true
   shell: kubectl apply -f nfs-pvc.yaml
 
