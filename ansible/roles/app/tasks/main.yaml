@@ -1,6 +1,6 @@
-#- name: create mamespace
-#  become: true
-#  shell: kubectl create namespace webapp-volumes
+- name: create mamespace
+  become: true
+  shell: kubectl create namespace webapp-volumes
 
 
 - name: Copy nfs-pv.yaml to master
@@ -21,7 +21,7 @@
 
 - name: Apply nfs-pvc.yaml
   become: true
-  shell: kubectl apply -f nfs-pvc.yamlx
+  shell: kubectl apply -f nfs-pvc.yaml
 
 - name: Copy webapp-volumes.yaml to master
   become: true
@@ -50,24 +50,25 @@
 #   dest: ./
 #   mode: u=rw,g=r,o=r
 
-#- name: create mamespace
-#  become: true
-#  shell: kubectl create namespace loki-stack
+- name: create mamespace
+  become: true
+  shell: kubectl create namespace loki-stack
 
-#- name: install helm
-#  shell: curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+- name: install helm
+  shell: curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
 
-#- name: permissions
-#  shell: chmod +x get_helm.sh
+- name: permissions
+  shell: chmod +x get_helm.sh
 
 #- name: install helm
 #  shell: ./get_helm.sh
 
-#- name: Apply loki-stack.yaml
-#  kubernetes.core.helm:
-#    name: loki-stack
-#    release_namespace: loki-stack
-#    chart_ref: loki-stack.yaml
+- name: Apply loki-stack.yaml
+  become_user: adminUsername
+  kubernetes.core.helm:
+    name: loki-stack
+    release_namespace: loki-stack
+    chart_ref: loki-stack.yaml
 
 
 
