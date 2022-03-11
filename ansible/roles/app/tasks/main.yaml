@@ -23,14 +23,14 @@
   become: true
   shell: kubectl apply -f nfs-pvc.yaml
 
-- name: Copy webapp-volumes.yaml to master
-  become: true
-  copy:
-    src: webapp-volumes.yaml
-    dest: ./
+#- name: Copy webapp-volumes.yaml to master
+#  become: true
+#  copy:
+#    src: webapp-volumes.yaml
+#    dest: ./
 
-- name: apply webapp-volumes.yaml
-  shell: kubectl apply -f webapp-volumes.yaml
+#- name: apply webapp-volumes.yaml
+#  shell: kubectl apply -f webapp-volumes.yaml
 
 ##PRUEBAS con varias app
 
