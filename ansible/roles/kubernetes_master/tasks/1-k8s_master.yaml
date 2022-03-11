@@ -49,6 +49,11 @@
     cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
     chown $(id -u):$(id -g) $HOME/.kube/config
 
+-name: kubeconfig root
+    mkdir -p /root/.kube
+    cp -i /etc/kubernetes/admin.conf /root/.kube/config
+    chown $(id -u):$(id -g) /root/.kube/config
+
 - name: Generate join command
   command: kubeadm token create --print-join-command
   register: join_command
@@ -57,7 +62,7 @@
   local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
   become: no  
 
-- name: enable root use kubectl
+- name: enable root use kubectl_2
   shell: KUBECONFIG=/etc/kubernetes/admin.conf
 
 #falta kubeadm join el mismo master.
