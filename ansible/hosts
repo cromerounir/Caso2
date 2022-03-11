@@ -4,11 +4,11 @@ host_key_checking = False
 ansible_ssh_private_key= "~/.ssh/id_rsa"
 
 [master]
-20.86.186.137
+20.229.73.103
 
 [workers]
-20.93.148.171
-20.86.186.240
+40.68.244.177
+20.126.140.195
 
 [nfs]
-20.86.186.137
+20.229.73.103

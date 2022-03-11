@@ -7,13 +7,13 @@ variable "location" {
 variable "vm_size" {
     type = string
     description = "VM size"
-    default = "Standard_A1_v2"
+    default = "Standard_B2s"
 }
 
 variable "vm_size_master" {
     type = string
     description = "VM size"
-    default = "Standard_A2_v2"
+    default = "Standard_D2s_v3"
 }
 
 variable "machine_master" {
