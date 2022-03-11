@@ -1,0 +1,30 @@
+loki:
+  enabled: true
+  config:
+    table_manager:
+      retention_deletes_enabled: true
+      retention_period: 1680h
+  persistence:
+    enabled: true
+    accessModes:
+    - ReadWriteOnce
+    size: 250Gi
+    storageClassName: standard
+    annotations: {}
+promtail:
+  enabled: true
+grafana:
+  enabled: false
+  sidecar:
+    datasources:
+      enabled: true
+  image:
+    tag: 8.1.6
+prometheus:
+  enabled: false
+  server:
+    fullnameOverride: prometheus-server
+resources:
+  requests:
+    cpu: 200m
+    memory: 256Mi

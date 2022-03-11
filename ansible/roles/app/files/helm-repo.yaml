@@ -1,0 +1,4 @@
+- name: Apply loki-stack.yaml
+  kubernetes.core.helm_repository:
+    name: loki-stack
+    repo_url: "https://grafana.github.io/helm-charts"

@@ -52,7 +52,7 @@
 
 - name: create mamespace
   become: true
-  shell: kubectl create namespace loki-stack
+  shell: kubectl create namespace wordpress
 
 - name: install helm
   shell: curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
@@ -60,22 +60,24 @@
 - name: permissions
   shell: chmod +x get_helm.sh
 
-#- name: install helm
-#  shell: ./get_helm.sh
-
-- name: Apply loki-stack.yaml
-  become: true
+- name: Helm repo
   become_user: adminUsername
   kubernetes.core.helm_repository:
-    name: loki-stack
-    repo_url: "https://grafana.github.io/helm-charts"
-    release_namespace: loki-stack
-    chart_version: 2.5.0
-    values_files: loki-stack.yaml
+    name: bitnami
+    repo_url: "https://charts.bitnami.com/bitnami"
 
+- name: Copy wordpress-values.yaml to master
+  become: true
+  copy:
+    src: wordpress-values.yaml
+    dest: ./
 
-
-#- name: Add stable chart repo
-#  kubernetes.core.helm_repository:
-#    name: stable
-#    repo_url: "https://kubernetes.github.io/ingress-nginx"
+- name: Install wordpress chart
+  become_user: adminUsername
+  kubernetes.core.helm:
+    state: present
+    name: wordpress
+    release_namespace: wordpress
+    chart_ref: bitnami/wordpress
+    values_files:
+          - ./wordpress-values.yaml
