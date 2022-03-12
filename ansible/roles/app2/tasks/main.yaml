@@ -50,4 +50,5 @@
   shell: kubectl apply -f wordpress-pvc.yaml
 
 - name: install workpress via helm
-  shell: helm install workpress bitnami/wordpress --set wordpressUsername=admin,wordpressPassword=adminpassword,mariadb.mariadbRootPassword=secretpassword,persistence.existingClaim=wordpress-wordpress,allowEmptyPassword=false 
+  become: true
+  shell: helm install workpress stable/wordpress --set wordpressUsername=admin,wordpressPassword=adminpassword,mariadb.mariadbRootPassword=secretpassword,persistence.existingClaim=wordpress-wordpress,allowEmptyPassword=false 
