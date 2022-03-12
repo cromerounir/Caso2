@@ -1,3 +1,4 @@
+
 - name: Apply loki-stack.yaml
   kubernetes.core.helm_repository:
     name: loki-stack
