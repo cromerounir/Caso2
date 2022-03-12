@@ -58,7 +58,11 @@
   shell: curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
 
 - name: permissions
-  shell: chmod +x get_helm.sh
+  shell: chmod 700 get_helm.sh
+
+- name: install helm
+  become: true
+  shell: ./get_helm.sh
 
 - name: Helm repo
   become_user: adminUsername

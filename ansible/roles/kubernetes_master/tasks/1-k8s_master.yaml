@@ -34,7 +34,7 @@
    - 'rule family=ipv4 source address=10.0.1.10/24 accept'
    - 'rule family=ipv4 source address=10.0.1.11/24 accept'
 
-- name: update inages
+- name: update images
   shell: kubeadm config images pull
 
 - name: avoid kubeadm failing to initialize next step
@@ -43,14 +43,28 @@
 - name: install plugin CNI and define pods network
   shell: kubeadm init --pod-network-cidr={{ip_cidr}}
 
-- name: copy k8s kubeconfig
+- name: build kube folder
+  become: true
+  shell: mkdir -p /home/adminUsername/.kube
+
+- name: copy kubeconfig home
+  become: true
+  ansible.builtin.copy:
+   src:  /etc/kubernetes/admin.conf 
+   dest: /home/adminUsername/.kube/config
+   remote_src: yes
+   mode: u=rw,g=r,o=r
+
+#- name: copy k8s kubeconfig
+#  shell: |
+#    mkdir -p $HOME/.kube
+#    cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+#    chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+- name: kubeconfig root
+  become: true
   shell: |
-    mkdir -p $HOME/.kube
-    cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-    chown $(id -u):$(id -g) $HOME/.kube/config
-
-
--name: kubeconfig root
     mkdir -p /root/.kube
     cp -i /etc/kubernetes/admin.conf /root/.kube/config
     chown $(id -u):$(id -g) /root/.kube/config
