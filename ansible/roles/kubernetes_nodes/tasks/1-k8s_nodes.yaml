@@ -21,6 +21,3 @@
 
 - name: join workers to k8s cluster
   command: sh /tmp/join-command.sh
-
-#- name: remove join-command
-#  command: rm join-command

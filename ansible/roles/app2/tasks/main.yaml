@@ -1,0 +1,53 @@
+- name: install helm
+  shell: curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+
+- name: permissions
+  shell: chmod 700 get_helm.sh
+
+- name: install helm
+  become: true
+  shell: ./get_helm.sh
+  ignore_errors: yes
+
+- name: Copy mariadb-hostpath.yaml to master
+  become: true
+  copy:
+    src: mariadb-hostpath.yaml
+    dest: ./
+
+- name: Apply mariadb-hostpath.yaml
+  become: true
+  shell: kubectl apply -f mariadb-hostpath.yaml
+
+- name: Copy wordpress-hostpath.yaml to master
+  become: true
+  copy:
+    src: wordpress-hostpath.yaml
+    dest: ./
+
+- name: Apply wordpress-hostpath.yaml
+  become: true
+  shell: kubectl apply -f wordpress-hostpath.yaml
+
+- name: Copy wordpress-mariadb-pvc.yaml to master
+  become: true
+  copy:
+    src: wordpress-mariadb-pvc.yaml
+    dest: ./
+
+- name: Apply wordpress-mariadb-pvc.yaml
+  become: true
+  shell: kubectl apply -f wordpress-mariadb-pvc.yaml
+
+- name: Copy wordpress-pvc.yaml to master
+  become: true
+  copy:
+    src: wordpress-pvc.yaml
+    dest: ./
+
+- name: Apply wordpress-pvc.yaml
+  become: true
+  shell: kubectl apply -f wordpress-pvc.yaml
+
+- name: install workpress via helm
+  shell: helm install workpress bitnami/wordpress --set wordpressUsername=admin,wordpressPassword=adminpassword,mariadb.mariadbRootPassword=secretpassword,persistence.existingClaim=wordpress-wordpress,allowEmptyPassword=false 

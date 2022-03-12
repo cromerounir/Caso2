@@ -71,18 +71,28 @@
     name: bitnami
     repo_url: "https://charts.bitnami.com/bitnami"
 
-- name: Copy wordpress-values.yaml to master
+#- name: Copy wordpress-values.yaml to master
+#  become: true
+#  copy:
+#    src: wordpress-values.yaml
+#    dest: ./
+
+#- name: Install wordpress chart
+#  become_user: adminUsername
+#  kubernetes.core.helm:
+#    state: present
+#    name: wordpress
+#    release_namespace: wordpress
+#    chart_ref: bitnami/wordpress
+#    values_files:
+#          - ./wordpress-values.yaml
+
+- name: Copy wordpress-deployment.yaml to master
   become: true
   copy:
-    src: wordpress-values.yaml
+    src: wordpress-deployment.yaml
     dest: ./
 
-- name: Install wordpress chart
-  become_user: adminUsername
-  kubernetes.core.helm:
-    state: present
-    name: wordpress
-    release_namespace: wordpress
-    chart_ref: bitnami/wordpress
-    values_files:
-          - ./wordpress-values.yaml
+- name: Apply wordpress-deployement.yaml 
+  become: true
+  shell: kubectl apply -f wordpress-deployment.yaml
