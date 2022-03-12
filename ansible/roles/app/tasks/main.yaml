@@ -63,6 +63,7 @@
 - name: install helm
   become: true
   shell: ./get_helm.sh
+  ignore_errors: yes
 
 - name: Helm repo
   become_user: adminUsername
