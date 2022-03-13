@@ -53,11 +53,28 @@
   become_user: adminUsername
   shell: helm repo add bitnami https://charts.bitnami.com/bitnami
 
-- name: update helm dependecies
-  become_user: adminUsername
-  shell: helm dependency update
+#- name: update helm dependecies
+#  become_user: adminUsername
+#  shell: helm dependency update
+#  ignore_errors: yes
+
+#- name: Deploy Grafana chart using values files on target
+#  become_user: adminUsername
+#  kubernetes.core.helm:
+#    name: wordpress
+#    chart_ref: stable/wordpress
+#    release_namespace: wordpress
+#    values:
+#      wordpressUsername: admin
+#      wordpressPassword: password
+#      mariadb.mariadbRootPassword: secretpassword
+#      persistence.existingClaim: wordpress-wordpress
+#      allowEmptyPassword: false
+
+
+
 
 
 - name: install workpress via helm
   become_user: adminUsername
-  shell: helm install workpress stable/wordpress --set wordpressUsername=admin,wordpressPassword=adminpassword,mariadb.mariadbRootPassword=secretpassword,persistence.existingClaim=wordpress-wordpress,allowEmptyPassword=false 
+  shell: helm install wordpress bitnami/wordpress --set wordpressUsername=admin,wordpressPassword=adminpassword,mariadb.mariadbRootPassword=secretpassword,persistence.existingClaim=wordpress-wordpress,allowEmptyPassword=false 
