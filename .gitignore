@@ -4,3 +4,4 @@ Terraform/.terraform
 centos
 *.hcl
 terraform.tfstate.backup
+.terraform
