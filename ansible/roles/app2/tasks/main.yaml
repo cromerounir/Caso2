@@ -1,8 +1,8 @@
-- name: install helm
+- name: curl helm
   shell: curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
 
 - name: permissions
-  shell: chmod 700 get_helm.sh
+  shell: chmod 777 get_helm.sh
 
 - name: install helm
   become: true
@@ -50,14 +50,14 @@
   shell: kubectl apply -f wordpress-pvc.yaml
 
 - name: helm repo
-  become: true
+  become_user: adminUsername
   shell: helm repo add bitnami https://charts.bitnami.com/bitnami
 
 - name: update helm dependecies
-  become: true
+  become_user: adminUsername
   shell: helm dependency update
 
 
 - name: install workpress via helm
-  become: true
+  become_user: adminUsername
   shell: helm install workpress stable/wordpress --set wordpressUsername=admin,wordpressPassword=adminpassword,mariadb.mariadbRootPassword=secretpassword,persistence.existingClaim=wordpress-wordpress,allowEmptyPassword=false 
