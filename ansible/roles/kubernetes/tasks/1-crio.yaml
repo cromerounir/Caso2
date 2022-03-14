@@ -5,11 +5,6 @@
 - name: download repo_2
   shell: wget -O /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:1.23:1.23.1.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:1.23:1.23.1/CentOS_8_Stream/devel:kubic:libcontainers:stable:cri-o:1.23:1.23.1.repo
 
-#así no me funciona. Lo hago desde local.
-
-#- name: kernel modules cri-o
-#  shell: cat <<EOF > /etc/modules-load.d/crio.conf > overlay > br_netfilter > EOF
-
 - name: install and start service
   dnf:
     name: cri-o

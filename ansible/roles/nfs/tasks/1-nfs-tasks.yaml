@@ -10,7 +10,7 @@
     systemctl  enable nfs-server
     systemctl  start nfs-server
 
-- name: exportfs accepts LAN
+- name: exports accepts LAN
   become: true
   ansible.builtin.lineinfile:
     path: /etc/exports

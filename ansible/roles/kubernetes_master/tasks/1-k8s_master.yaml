@@ -24,7 +24,7 @@
     name: firewalld
     state: reloaded
 
-- name: allow access to workers and local
+- name: allow access to workers
   firewalld:
       rich_rule: "{{item}}"
       permanent: yes
@@ -79,14 +79,3 @@
 
 - name: enable root use kubectl_2
   shell: KUBECONFIG=/etc/kubernetes/admin.conf
-
-#falta kubeadm join el mismo master.
-
-#- name: create new foler .kube
-#  command: mkdir -p /root/.kube
-
-#- name: copy permissions
-#  command: cp -i /etc/kubernetes/admin.conf /root/.kube/config
-
-#- name: authorize root
-#  shell: chown $(id -u):$(id -g) /root/.kube/config
