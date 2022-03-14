@@ -1,5 +1,4 @@
-# Creación de red
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network
+
 
 resource "azurerm_virtual_network" "myNet" {
     name                = "kubernetesnet"
@@ -12,8 +11,6 @@ resource "azurerm_virtual_network" "myNet" {
     }
 }
 
-# Creación de subnet
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet
 
 resource "azurerm_subnet" "mySubnet" {
     name                   = "terraformsubnet"
@@ -23,8 +20,7 @@ resource "azurerm_subnet" "mySubnet" {
 
 }
 
-# Create NIC machines
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface
+
 
 resource "azurerm_network_interface" "myNic1" {
   name                = "nic-${var.machines[count.index]}"
@@ -46,8 +42,7 @@ resource "azurerm_network_interface" "myNic1" {
 
 }
 
-# IP pública machines
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/public_ip
+
 
 resource "azurerm_public_ip" "myPublicIp1" {
   name                = "vmip-${var.machines[count.index]}"
@@ -63,8 +58,7 @@ resource "azurerm_public_ip" "myPublicIp1" {
 
 }
 
-# Create NIC master
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface
+
 
 resource "azurerm_network_interface" "myNicmaster" {
   name                = "masternic"
@@ -85,8 +79,7 @@ resource "azurerm_network_interface" "myNicmaster" {
 
 }
 
-# IP pública machines
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/public_ip
+
 
 resource "azurerm_public_ip" "myPublicIpmaster" {
   name                = "vmip-master"
