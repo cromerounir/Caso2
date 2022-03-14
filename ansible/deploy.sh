@@ -9,4 +9,4 @@ ansible-playbook -i hosts 3-nfs-config.yaml
 ansible-playbook -i hosts 4-k8s-installation.yaml
 ansible-playbook -i hosts 5-k8s-master.yaml
 ansible-playbook -i hosts 6-k8s-nodes.yaml
-ansible-playbook -i hosts 7-deploy-app.yam
+ansible-playbook -i hosts 7-deploy-app.yaml
