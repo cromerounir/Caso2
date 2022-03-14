@@ -1,4 +1,3 @@
-credentials.tf
 *.tfstate
 Terraform/.terraform
 centos
