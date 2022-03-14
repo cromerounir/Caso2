@@ -1,2 +1,2 @@
 # Caso2
-Unir CP2
+Repositorio para el Caso Práctico 2 del Experto Universitario Devops & Cloud de UNIR.
